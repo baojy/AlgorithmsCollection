@@ -1,0 +1,3 @@
+If you get something wrong about "remote origin already exists"
+try to use "git remote -v" and "git remote rm ..."
+finally you well get it work , enjoy it!
