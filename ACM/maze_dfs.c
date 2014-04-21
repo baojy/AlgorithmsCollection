@@ -7,21 +7,20 @@
 
 struct point {
   int x, y;
-} queue[215];
+} stack[215];
 
-int head=0;
-int tail=0;
+int top=0;
 
 void push(struct point p){
-  queue[head++]=p;
+  stack[top++]=p;
 }
 
 struct point pop(){
-  return queue[tail++];
+  return stack[--top];
 }
 
 int is_empty(){
-  return head==tail;
+  return top==0;
 }
 
 int maze[MAX_ROW][MAX_COL] = {
@@ -31,7 +30,7 @@ int maze[MAX_ROW][MAX_COL] = {
   0, 1, 1, 1, 0,
   0, 0, 0, 1, 0,
 };
-/* è®°å½•æ¯ä¸ªèŠ‚ç‚¹çš„å‰é©±æ˜¯å“ªä¸ªèŠ‚ç‚¹ï¼Œå³ä»å“ªä¸ªèŠ‚ç‚¹æ¥åˆ°æ­¤èŠ‚ç‚¹çš„ */
+/* ¼ÇÂ¼Ã¿¸ö½ÚµãµÄÇ°ÇıÊÇÄÄ¸ö½Úµã£¬¼´´ÓÄÄ¸ö½ÚµãÀ´µ½´Ë½ÚµãµÄ */
 struct point predecessor[MAX_ROW][MAX_COL]={
   {  {-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}  },
   {  {-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}, },
@@ -42,8 +41,8 @@ struct point predecessor[MAX_ROW][MAX_COL]={
 
 void visit(int row,int col,struct point pre){
   struct point cur ={row,col};
-  maze[row][col]=2;             /* 2 è¡¨ç¤ºè¿™ä¸ªèŠ‚ç‚¹è¢«è®¿é—®è¿‡ */
-  if(!(row==0&&col==0)){        /* 0,0æ²¡æœ‰å‰é©±èŠ‚ç‚¹ï¼Œæ— ä»åŠ èµ· */
+  maze[row][col]=2;             /* 2 ±íÊ¾Õâ¸ö½Úµã±»·ÃÎÊ¹ı */
+  if(!(row==0&&col==0)){        /* 0,0Ã»ÓĞÇ°Çı½Úµã£¬ÎŞ´Ó¼ÓÆğ */
     predecessor[row][col]=pre;
   }
   push(cur);
@@ -84,7 +83,7 @@ int main(int argc, char *argv[]){
     }
     print_maze();
   }
-  if (p.x==MAX_ROW-1 && p.y==MAX_COL-1){ /* å¦‚æœåˆ°è¾¾äº†ç»ˆç‚¹ï¼Œæ‰“å°å›è·¯ */
+  if (p.x==MAX_ROW-1 && p.y==MAX_COL-1){ /* Èç¹ûµ½´ïÁËÖÕµã£¬´òÓ¡»ØÂ· */
     printf ("%d,%d\n",p.x,p.y);
     while(predecessor[p.x][p.y].x!=-1&&predecessor[p.x][p.y].y!=-1){
       p=predecessor[p.x][p.y];
