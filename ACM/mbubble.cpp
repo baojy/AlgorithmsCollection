@@ -1,4 +1,4 @@
-//bjy1993
+
 #include<iostream>
 
 using namespace std;
